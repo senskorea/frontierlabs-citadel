@@ -26,11 +26,11 @@ export function CitadelDemo() {
   const ordered = AGENT_ORDER.map(id => agents.find(a => a.id === id)!)
 
   return (
-    <div className="flex h-screen bg-gray-950 text-white overflow-hidden">
-      <div className="w-[70%] flex items-center justify-center bg-gray-950 p-4">
+    <div className="flex h-screen bg-stone-50 text-stone-900 overflow-hidden">
+      <div className="w-[70%] flex items-center justify-center bg-stone-50 p-4">
         <CitadelCanvas onAgentStateChange={handleStateChange} />
       </div>
-      <div className="w-[30%] border-l border-gray-800">
+      <div className="w-[30%] border-l border-stone-300">
         <AgentStatusPanel agents={ordered} />
       </div>
     </div>

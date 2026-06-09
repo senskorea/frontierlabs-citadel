@@ -2,11 +2,11 @@ import Phaser from 'phaser'
 import type { AgentId, AgentState, Zone } from './citadel.types'
 
 const ZONES: Zone[] = [
-  { id: 'warRoom',       label: 'WAR ROOM',      x: 0,   y: 0,   width: 280, height: 220, color: 0xD97706 },
-  { id: 'library',       label: 'THE LIBRARY',   x: 290, y: 0,   width: 270, height: 220, color: 0x3B82F6 },
+  { id: 'warRoom',       label: 'WAR ROOM',       x: 0,   y: 0,   width: 280, height: 220, color: 0xD97706 },
+  { id: 'library',       label: 'THE LIBRARY',    x: 290, y: 0,   width: 270, height: 220, color: 0x3B82F6 },
   { id: 'bureauCommons', label: 'BUREAU COMMONS', x: 0,   y: 230, width: 170, height: 220, color: 0x8B5CF6 },
-  { id: 'writingDesk',   label: 'WRITING DESK',  x: 180, y: 230, width: 200, height: 220, color: 0x6B7280 },
-  { id: 'theVault',      label: 'THE VAULT',     x: 390, y: 230, width: 170, height: 220, color: 0x10B981 },
+  { id: 'writingDesk',   label: 'WRITING DESK',   x: 180, y: 230, width: 200, height: 220, color: 0x6B7280 },
+  { id: 'theVault',      label: 'THE VAULT',      x: 390, y: 230, width: 170, height: 220, color: 0x10B981 },
 ]
 
 interface AgentDef {
@@ -19,10 +19,10 @@ interface AgentDef {
 }
 
 const AGENT_DEFS: AgentDef[] = [
-  { id: 'scout',       name: 'The Scout',       color: 0x3B82F6, cssColor: '#3B82F6', homeZone: 'library',       visitZones: ['warRoom'] },
-  { id: 'strategist',  name: 'The Strategist',  color: 0x10B981, cssColor: '#10B981', homeZone: 'warRoom',       visitZones: ['writingDesk'] },
-  { id: 'writer',      name: 'The Writer',      color: 0xF59E0B, cssColor: '#F59E0B', homeZone: 'writingDesk',   visitZones: ['library'] },
-  { id: 'architect',   name: 'The Architect',   color: 0x8B5CF6, cssColor: '#8B5CF6', homeZone: 'warRoom',       visitZones: ['theVault'] },
+  { id: 'scout',       name: 'The Scout',        color: 0x3B82F6, cssColor: '#3B82F6', homeZone: 'library',       visitZones: ['warRoom'] },
+  { id: 'strategist',  name: 'The Strategist',   color: 0x10B981, cssColor: '#10B981', homeZone: 'warRoom',       visitZones: ['writingDesk'] },
+  { id: 'writer',      name: 'The Writer',       color: 0xF59E0B, cssColor: '#F59E0B', homeZone: 'writingDesk',   visitZones: ['library'] },
+  { id: 'architect',   name: 'The Architect',    color: 0x8B5CF6, cssColor: '#8B5CF6', homeZone: 'warRoom',       visitZones: ['theVault'] },
   { id: 'teamBuilder', name: 'The Team Builder', color: 0xEF4444, cssColor: '#EF4444', homeZone: 'bureauCommons', visitZones: ['warRoom'] },
 ]
 
@@ -49,9 +49,8 @@ export class CitadelScene extends Phaser.Scene {
   }
 
   create() {
-    this.cameras.main.setBackgroundColor('#111827')
+    this.cameras.main.setBackgroundColor('#F5F0E8')
 
-    // Draw zones
     for (const zone of ZONES) {
       const rect = this.add.rectangle(
         zone.x + zone.width / 2,
@@ -59,37 +58,31 @@ export class CitadelScene extends Phaser.Scene {
         zone.width,
         zone.height,
         zone.color,
-        0.3
+        0.2
       )
-      rect.setStrokeStyle(1, zone.color, 0.6)
+      rect.setStrokeStyle(2, zone.color, 0.8)
       this.zoneRects.set(zone.id, rect)
 
       this.add.text(zone.x + 8, zone.y + 8, zone.label, {
-        fontSize: '10px',
-        color: '#ffffff',
-      }).setAlpha(0.7)
+        fontSize: '12px',
+        color: '#3D2B1F',
+        fontFamily: 'serif',
+      })
     }
 
-    // Spawn agents
     for (const def of AGENT_DEFS) {
       const zone = ZONES.find(z => z.id === def.homeZone)!
       const cx = zone.x + zone.width / 2
       const cy = zone.y + zone.height / 2
 
-      const circle = this.add.circle(cx, cy, 8, def.color)
+      const circle = this.add.circle(cx, cy, 10, def.color)
+      circle.setStrokeStyle(2, 0xffffff)
       const label = this.add.text(cx, cy - 16, def.name, {
         fontSize: '9px',
-        color: '#ffffff',
+        color: '#1F2937',
       }).setOrigin(0.5, 1)
 
-      const agent: AgentObj = {
-        def,
-        circle,
-        label,
-        currentZone: def.homeZone,
-        tween: null,
-        timer: null,
-      }
+      const agent: AgentObj = { def, circle, label, currentZone: def.homeZone, tween: null, timer: null }
       this.agents.push(agent)
       this.scheduleMove(agent)
     }
@@ -110,16 +103,13 @@ export class CitadelScene extends Phaser.Scene {
 
     const tx = zone.x + Phaser.Math.Between(20, zone.width - 20)
     const ty = zone.y + Phaser.Math.Between(20, zone.height - 20)
-
     const dist = Phaser.Math.Distance.Between(agent.circle.x, agent.circle.y, tx, ty)
     const duration = (dist / 80) * 1000
 
     agent.tween = this.tweens.add({
       targets: [agent.circle, agent.label],
       x: tx,
-      y: { value: ty, onUpdate: (_tween: unknown, target: Phaser.GameObjects.Text) => {
-        if (target === agent.label) agent.label.y = agent.circle.y - 16
-      }},
+      y: ty,
       duration,
       ease: 'Linear',
       onUpdate: () => {
@@ -140,8 +130,8 @@ export class CitadelScene extends Phaser.Scene {
     if (!rect) return
     this.tweens.add({
       targets: rect,
-      fillAlpha: 0.7,
-      duration: 300,
+      fillAlpha: 0.5,
+      duration: 400,
       yoyo: true,
       ease: 'Sine.easeInOut',
     })

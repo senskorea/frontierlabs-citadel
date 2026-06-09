@@ -1,0 +1,7 @@
+{
+  "tool_name": "Bash",
+  "tool_input_preview": "{\"command\":\"cd \\\"/Users/paul/Documents/Shared/m1shared/agents/InsightMatches SAAS/frontierlabs-citadel\\\" && git checkout master && git merge fix-citadel-build-visuals-12560697710436445986 --allow-unre...",
+  "error": "Exit code 1\nSwitched to branch 'master'\nYour branch is up to date with 'origin/master'.\nAuto-merging src/components/citadel/AgentStatusPanel.tsx\nCONFLICT (add/add): Merge conflict in src/components/citadel/AgentStatusPanel.tsx\nAuto-merging src/components/citadel/CitadelScene.ts\nCONFLICT (add/add): Merge conflict in src/components/citadel/CitadelScene.ts\nAuto-merging src/index.css\nCONFLICT (add/add): Merge conflict in src/index.css\nAuto-merging src/pages/CitadelDemo.tsx\nCONFLICT (add/add): Merge ...",
+  "timestamp": "2026-06-09T10:25:56.993Z",
+  "retry_count": 1
+}

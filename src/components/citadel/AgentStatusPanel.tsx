@@ -57,16 +57,16 @@ export function AgentStatusPanel({ agents }: Props) {
   }, [])
 
   return (
-    <div className="flex flex-col gap-3 p-4 h-full overflow-y-auto bg-gray-950">
-      <h2 className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-1">Agent Activity</h2>
+    <div className="flex flex-col gap-3 p-4 h-full overflow-y-auto bg-stone-100">
+      <h2 className="text-xs font-bold text-stone-500 uppercase tracking-widest mb-1">Agent Activity</h2>
       {agents.map(agent => (
-        <div key={agent.id} className="rounded-lg border border-gray-800 bg-gray-900 p-3">
+        <div key={agent.id} className="rounded-lg border border-stone-200 bg-stone-50 p-3">
           <div className="flex items-center gap-2 mb-1">
             <span className="w-2.5 h-2.5 rounded-full flex-shrink-0" style={{ backgroundColor: agent.color }} />
-            <span className="text-sm font-bold text-white">{agent.name}</span>
+            <span className="text-sm font-bold text-stone-900">{agent.name}</span>
           </div>
-          <div className="text-xs text-gray-400 mb-1">{agent.currentZone}</div>
-          <div className="text-xs text-gray-300 italic">{AGENT_MESSAGES[agent.id][msgIndexes[agent.id]]}</div>
+          <div className="text-xs text-stone-500 mb-1">{agent.currentZone}</div>
+          <div className="text-xs text-stone-700 italic">{AGENT_MESSAGES[agent.id][msgIndexes[agent.id]]}</div>
         </div>
       ))}
     </div>
