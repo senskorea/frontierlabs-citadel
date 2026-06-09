@@ -67,8 +67,7 @@ export class CitadelScene extends Phaser.Scene {
       this.add.text(zone.x + 8, zone.y + 8, zone.label, {
         fontSize: '10px',
         color: '#ffffff',
-        alpha: 0.7,
-      })
+      }).setAlpha(0.7)
     }
 
     // Spawn agents
