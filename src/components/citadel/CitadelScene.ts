@@ -65,10 +65,9 @@ export class CitadelScene extends Phaser.Scene {
       this.zoneRects.set(zone.id, rect)
 
       this.add.text(zone.x + 8, zone.y + 8, zone.label, {
-        fontSize: '10px',
+        fontSize: '12px',
         color: '#3D2B1F',
         fontFamily: 'serif',
-        fontSize: '12px',
       })
     }
 
