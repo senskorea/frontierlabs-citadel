@@ -34,7 +34,7 @@ export function CitadelCanvas({ onAgentStateChange }: CitadelCanvasProps) {
       gameRef.current?.destroy(true)
       gameRef.current = null
     }
-  }, [])
+  }, [onAgentStateChange])
 
   return <div ref={containerRef} className="w-full h-full" />
 }

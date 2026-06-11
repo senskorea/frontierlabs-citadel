@@ -1,0 +1,10 @@
+--- src/App.tsx
++++ src/App.tsx
+@@ -9,7 +9,6 @@
+ const isDemo = new URLSearchParams(window.location.search).get('demo') === 'citadel'
+
+ function App() {
+-  const [count, setCount] = useState(0)
+   const [showDemo, setShowDemo] = useState(isDemo)
+
+   if (showDemo) return <CitadelDemo />

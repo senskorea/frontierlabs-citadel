@@ -1,0 +1,13 @@
+--- src/App.tsx
++++ src/App.tsx
+@@ -28,8 +28,8 @@
+         <button
+           type="button"
+           className="counter"
+-          onClick={() => setCount((count) => count + 1)}
++          onClick={() => setShowDemo(true)}
+         >
+-          Count is {count}
++          Try Demo
+         </button>
+       </section>

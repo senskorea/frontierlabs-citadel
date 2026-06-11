@@ -1,0 +1,11 @@
+--- src/components/citadel/CitadelCanvas.tsx
++++ src/components/citadel/CitadelCanvas.tsx
+@@ -34,7 +34,7 @@
+       gameRef.current?.destroy(true)
+       gameRef.current = null
+     }
+-  }, [])
++  }, [onAgentStateChange])
+
+   return <div ref={containerRef} className="w-full h-full" />
+ }
